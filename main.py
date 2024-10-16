@@ -61,7 +61,7 @@ class CornellNotesApp(QMainWindow):
         main_layout = QHBoxLayout()
         central_widget.setLayout(main_layout)
 
-        # Zone de liste des notes
+        # Zone de liste des notes #
         notes_list_layout = QVBoxLayout()
         self.notes_list = QListWidget()
         self.notes_list.itemClicked.connect(self.load_note)
@@ -69,7 +69,7 @@ class CornellNotesApp(QMainWindow):
         notes_list_layout.addWidget(self.notes_list)
         main_layout.addLayout(notes_list_layout)
 
-        # Zone de prise de notes
+        # Zone de prise de notes #
         note_layout = QVBoxLayout()
 
         # Titre
@@ -77,27 +77,27 @@ class CornellNotesApp(QMainWindow):
         self.title_input.setPlaceholderText("Entrez le titre de la note")
         note_layout.addWidget(self.title_input)
 
-        # Zone principale de notes
+        # Zone principale de notes #
         main_note_layout = QHBoxLayout()
 
-        # Colonne de rappel
+        # Colonne de rappel #
         self.cue_column = QTextEdit()
         self.cue_column.setPlaceholderText("Rappel")
         main_note_layout.addWidget(self.cue_column, 1)
 
-        # Notes principales
+        # Notes principales #
         self.main_notes = QTextEdit()
         self.main_notes.setPlaceholderText("Contenu")
         main_note_layout.addWidget(self.main_notes, 3)
 
         note_layout.addLayout(main_note_layout)
 
-        # Résumé
+        # Résumé #
         self.summary = QTextEdit()
         self.summary.setPlaceholderText("Résumé")
         note_layout.addWidget(self.summary)
 
-        # Boutons
+        # Boutons #
         button_layout = QHBoxLayout()
         self.save_button = QPushButton("Sauvegarder")
         self.save_button.clicked.connect(self.save_note)
@@ -127,7 +127,7 @@ class CornellNotesApp(QMainWindow):
 
         query = QSqlQuery()
         if self.notes_list.currentItem() and self.notes_list.currentItem().data(Qt.ItemDataRole.UserRole):
-            # Mise à jour d'une note existante
+            # Mise à jour d'une note existante #
             note_id = self.notes_list.currentItem().data(Qt.ItemDataRole.UserRole)
             query.prepare("""
             UPDATE notes SET titre = ?, contenu = ?, resume = ?, rappel = ?
@@ -139,7 +139,7 @@ class CornellNotesApp(QMainWindow):
             query.addBindValue(rappel)
             query.addBindValue(note_id)
         else:
-            # Création d'une nouvelle note
+            # Création d'une nouvelle note #
             query.prepare("""
             INSERT INTO notes (titre, contenu, resume, rappel)
             VALUES (?, ?, ?, ?)
